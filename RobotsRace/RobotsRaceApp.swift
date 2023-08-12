@@ -4,7 +4,7 @@ import SwiftUI
 struct RobotsRaceApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GameScreen()
         }
     }
 }

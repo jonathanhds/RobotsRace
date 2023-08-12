@@ -8,17 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		AB3A9D722A8700D900C9BF5C /* RobotsRaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A9D712A8700D900C9BF5C /* RobotsRaceApp.swift */; };
-		AB3A9D742A8700D900C9BF5C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A9D732A8700D900C9BF5C /* ContentView.swift */; };
+		AB3A9D742A8700D900C9BF5C /* GameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A9D732A8700D900C9BF5C /* GameScreen.swift */; };
 		AB3A9D762A8700DA00C9BF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB3A9D752A8700DA00C9BF5C /* Assets.xcassets */; };
 		AB3A9D792A8700DA00C9BF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB3A9D782A8700DA00C9BF5C /* Preview Assets.xcassets */; };
+		AB3A9D802A87041B00C9BF5C /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A9D7F2A87041B00C9BF5C /* Space.swift */; };
+		AB3A9D842A87062800C9BF5C /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A9D832A87062800C9BF5C /* Score.swift */; };
+		AB3A9D862A870CBB00C9BF5C /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A9D852A870CBB00C9BF5C /* Board.swift */; };
+		AB3A9D882A870D5C00C9BF5C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A9D872A870D5C00C9BF5C /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AB3A9D6E2A8700D900C9BF5C /* RobotsRace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RobotsRace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB3A9D712A8700D900C9BF5C /* RobotsRaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotsRaceApp.swift; sourceTree = "<group>"; };
-		AB3A9D732A8700D900C9BF5C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AB3A9D732A8700D900C9BF5C /* GameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreen.swift; sourceTree = "<group>"; };
 		AB3A9D752A8700DA00C9BF5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB3A9D782A8700DA00C9BF5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AB3A9D7F2A87041B00C9BF5C /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
+		AB3A9D832A87062800C9BF5C /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		AB3A9D852A870CBB00C9BF5C /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		AB3A9D872A870D5C00C9BF5C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +59,9 @@
 		AB3A9D702A8700D900C9BF5C /* RobotsRace */ = {
 			isa = PBXGroup;
 			children = (
-				AB3A9D732A8700D900C9BF5C /* ContentView.swift */,
 				AB3A9D712A8700D900C9BF5C /* RobotsRaceApp.swift */,
-				AB3A9D752A8700DA00C9BF5C /* Assets.xcassets */,
-				AB3A9D772A8700DA00C9BF5C /* Preview Content */,
+				AB3A9D822A87044800C9BF5C /* Resources */,
+				AB3A9D812A87042100C9BF5C /* UI */,
 			);
 			path = RobotsRace;
 			sourceTree = "<group>";
@@ -65,6 +72,27 @@
 				AB3A9D782A8700DA00C9BF5C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AB3A9D812A87042100C9BF5C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AB3A9D852A870CBB00C9BF5C /* Board.swift */,
+				AB3A9D872A870D5C00C9BF5C /* Colors.swift */,
+				AB3A9D732A8700D900C9BF5C /* GameScreen.swift */,
+				AB3A9D832A87062800C9BF5C /* Score.swift */,
+				AB3A9D7F2A87041B00C9BF5C /* Space.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		AB3A9D822A87044800C9BF5C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AB3A9D752A8700DA00C9BF5C /* Assets.xcassets */,
+				AB3A9D772A8700DA00C9BF5C /* Preview Content */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB3A9D742A8700D900C9BF5C /* ContentView.swift in Sources */,
+				AB3A9D742A8700D900C9BF5C /* GameScreen.swift in Sources */,
 				AB3A9D722A8700D900C9BF5C /* RobotsRaceApp.swift in Sources */,
+				AB3A9D862A870CBB00C9BF5C /* Board.swift in Sources */,
+				AB3A9D842A87062800C9BF5C /* Score.swift in Sources */,
+				AB3A9D802A87041B00C9BF5C /* Space.swift in Sources */,
+				AB3A9D882A870D5C00C9BF5C /* Colors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
