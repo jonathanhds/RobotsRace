@@ -51,8 +51,8 @@
 		AB3A9D702A8700D900C9BF5C /* RobotsRace */ = {
 			isa = PBXGroup;
 			children = (
-				AB3A9D712A8700D900C9BF5C /* RobotsRaceApp.swift */,
 				AB3A9D732A8700D900C9BF5C /* ContentView.swift */,
+				AB3A9D712A8700D900C9BF5C /* RobotsRaceApp.swift */,
 				AB3A9D752A8700DA00C9BF5C /* Assets.xcassets */,
 				AB3A9D772A8700DA00C9BF5C /* Preview Content */,
 			);

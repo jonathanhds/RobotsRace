@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  RobotsRace
-//
-//  Created by Jonathan Souza on 11/08/23.
-//
-
 import SwiftUI
 
 struct ContentView: View {
