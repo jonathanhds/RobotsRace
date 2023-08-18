@@ -4,7 +4,8 @@ typealias IsMovementValid = ((Position, Direction) -> Bool)
 
 protocol Robot {
     var position: Position { get }
-    func decideNextMove() -> Direction?
+    var score: Int { get set }
+    func decideNextMove() async -> Direction?
 }
 
 extension Robot {
@@ -29,40 +30,46 @@ extension Robot {
 
 final class RandomRobot: Robot {
 
-    let position: Position
-
+    var score: Int = 0
+    var position: Position { currentPosition() }
+    private let currentPosition: () -> Position
     private let isMovementValid: IsMovementValid
 
     init(
-        _ position: Position,
+        _ currentPosition: @escaping () -> Position,
         _ isMovementValid: @escaping IsMovementValid
     ) {
-        self.position = position
+        self.currentPosition = currentPosition
         self.isMovementValid = isMovementValid
     }
 
-    func decideNextMove() -> Direction? {
+    func decideNextMove() async -> Direction? {
         randomMove(position, isMovementValid)
     }
 }
 
 final class ApproximationRobot: Robot {
 
-    let position: Position
-    private let targetPosition: Position
+    var score: Int = 0
+    var position: Position { currentPosition() }
+    private let targetPosition: () -> Position
+    private let currentPosition: () -> Position
     private let isMovementValid: IsMovementValid
 
     init(
-        _ position: Position,
-        _ targetPosition: Position,
+        _ targetPosition: @escaping () -> Position,
+        _ currentPosition: @escaping () -> Position,
         _ isMovementValid: @escaping IsMovementValid
     ) {
-        self.position = position
         self.targetPosition = targetPosition
+        self.currentPosition = currentPosition
         self.isMovementValid = isMovementValid
     }
 
-    func decideNextMove() -> Direction? {
+    func decideNextMove() async -> Direction? {
+        let position = self.position
+        let targetPosition = self.targetPosition()
+
         if position.x != targetPosition.x {
             if position.x > targetPosition.x, isMovementValid(position, .left) { return .left }
             if position.x < targetPosition.x, isMovementValid(position, .right) { return .right }

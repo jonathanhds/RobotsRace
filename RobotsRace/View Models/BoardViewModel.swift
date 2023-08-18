@@ -13,7 +13,10 @@ class BoardViewModel: ObservableObject {
     }
 
     func step() {
-        game.step()
+        Task {
+            await game.step()
+        }
+
         objectWillChange.send()
     }
 }

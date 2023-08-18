@@ -6,43 +6,39 @@ final class Game {
 
     private(set) var board: [[NodeState]] = []
 
-    private(set) var score: (robotA: Int, robotB: Int) = (robotA: 0, robotB: 0)
+    var score: (robotA: Int, robotB: Int) {
+        (robotA: robotA.score, robotB: robotB.score)
+    }
 
     private var isRobotATurn = true
 
-    private var targetPosition: Position {
-        guard let position = searchFor(nodeState: .target) else {
-            fatalError("Not able to find target position on grid")
-        }
+    private lazy var robotA: Robot = {
+        ApproximationRobot(
+            targetPosition,
+            robotAPosition,
+            isMovementValid
+        )
+    }()
 
-        return position
-    }
-
-    private var robotA: Robot {
-        guard let position = searchFor(nodeState: .robotA) else {
-            fatalError("Not able to find RobotA on grid")
-        }
-
-        return ApproximationRobot(position, targetPosition, isMovementValid)
-    }
-
-    private var robotB: Robot {
-        guard let position = searchFor(nodeState: .robotB) else {
-            fatalError("Not able to find RobotB on grid")
-        }
-
-        return RandomRobot(position, isMovementValid)
-    }
+    private lazy var robotB: Robot = {
+        RandomRobot(
+            robotBPosition,
+            isMovementValid
+        )
+    }()
 
     init() {
         setupBoard()
     }
 
-    func step() {
+    func step() async {
         let robot = isRobotATurn ? robotA : robotB
-        defer { isRobotATurn.toggle() }
+        var board = board
 
-        guard let nextMove = robot.decideNextMove() else { return }
+        guard let nextMove = await robot.decideNextMove() else {
+            isRobotATurn.toggle()
+            return
+        }
 
         let movement = nextMove.diff
 
@@ -50,15 +46,41 @@ final class Game {
 
         if board[robot.x + movement.x][robot.y + movement.y] == .target {
             if isRobotATurn {
-                score = (robotA: score.robotA + 1, robotB: score.robotB)
+                robotA.score += 1
             } else {
-                score = (robotA: score.robotA, robotB: score.robotB + 1)
+                robotB.score += 1
             }
 
             resetBoard()
         } else {
             board[robot.x + movement.x][robot.y + movement.y] = isRobotATurn ? .robotA : .robotB
+            self.board = board
+            isRobotATurn.toggle()
         }
+    }
+
+    private func targetPosition() -> Position {
+        guard let position = searchFor(nodeState: .target) else {
+            fatalError("Not able to find target position on grid")
+        }
+
+        return position
+    }
+
+    private func robotAPosition() -> Position {
+        guard let position = searchFor(nodeState: .robotA) else {
+            fatalError("Not able to find RobotA on grid")
+        }
+
+        return position
+    }
+
+    private func robotBPosition() -> Position {
+        guard let position = searchFor(nodeState: .robotB) else {
+            fatalError("Not able to find RobotB on grid")
+        }
+
+        return position
     }
 
     private func resetBoard() {
