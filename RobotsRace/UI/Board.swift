@@ -1,14 +1,26 @@
 import SwiftUI
 
 struct Board: View {
+
+    @StateObject var viewModel = BoardViewModel()
+
     var body: some View {
         VStack {
-            ForEach(0..<6) { j in
-                HStack {
-                    ForEach(0..<6) { i in
-                        Space(color: Colors.gray)
+            Score(score: viewModel.score)
+                .frame(maxHeight: 20)
+
+            HStack {
+                ForEach(viewModel.rows, id: \.hashValue) { row in
+                    VStack {
+                        ForEach(row, id: \.hashValue) { node in
+                            Space(node: node)
+                        }
                     }
                 }
+            }
+
+            Button("Step") {
+                viewModel.step()
             }
         }
     }

@@ -5,10 +5,6 @@ struct GameScreen: View {
         VStack {
             Spacer()
 
-            Score()
-                .padding(.horizontal)
-                .frame(maxHeight: 20)
-
             Board()
                 .padding()
 
