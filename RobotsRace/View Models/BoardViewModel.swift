@@ -1,8 +1,11 @@
 import Foundation
+import Combine
 
 class BoardViewModel: ObservableObject {
 
-    @Published private(set) var game = Game()
+    private(set) var game = Game()
+
+    private var cancellable: AnyCancellable?
 
     var score: (robotA: Int, robotB: Int) {
         game.score
@@ -12,11 +15,14 @@ class BoardViewModel: ObservableObject {
         game.board
     }
 
-    func step() {
-        Task {
-            await game.step()
-        }
+    func start() {
+        cancellable = game
+            .objectWillChange
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.objectWillChange.send()
+            }
 
-        objectWillChange.send()
+        game.start()
     }
 }

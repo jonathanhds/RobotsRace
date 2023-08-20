@@ -2,8 +2,28 @@ import Foundation
 
 typealias IsMovementValid = ((Position, Direction) -> Bool)
 
+enum Player {
+    case playerA
+    case playerB
+
+    var nodeState: NodeState {
+        switch self {
+        case .playerA: return .robotA
+        case .playerB: return .robotB
+        }
+    }
+
+    var trailNodeState: NodeState {
+        switch self {
+        case .playerA: return .robotATrail
+        case .playerB: return .robotBTrail
+        }
+    }
+}
+
 protocol Robot {
     var position: Position { get }
+    var player: Player { get }
     var score: Int { get set }
     func decideNextMove() async -> Direction?
 }
@@ -11,6 +31,16 @@ protocol Robot {
 extension Robot {
     var x: Int { position.x }
     var y: Int { position.y }
+}
+
+extension Robot {
+    var nodeState: NodeState {
+        player.nodeState
+    }
+
+    var trailNodeState: NodeState {
+        player.trailNodeState
+    }
 }
 
 extension Robot {
@@ -30,15 +60,18 @@ extension Robot {
 
 final class RandomRobot: Robot {
 
+    let player: Player
     var score: Int = 0
     var position: Position { currentPosition() }
     private let currentPosition: () -> Position
     private let isMovementValid: IsMovementValid
 
     init(
+        player: Player,
         _ currentPosition: @escaping () -> Position,
         _ isMovementValid: @escaping IsMovementValid
     ) {
+        self.player = player
         self.currentPosition = currentPosition
         self.isMovementValid = isMovementValid
     }
@@ -50,6 +83,7 @@ final class RandomRobot: Robot {
 
 final class ApproximationRobot: Robot {
 
+    let player: Player
     var score: Int = 0
     var position: Position { currentPosition() }
     private let targetPosition: () -> Position
@@ -57,10 +91,12 @@ final class ApproximationRobot: Robot {
     private let isMovementValid: IsMovementValid
 
     init(
+        player: Player,
         _ targetPosition: @escaping () -> Position,
         _ currentPosition: @escaping () -> Position,
         _ isMovementValid: @escaping IsMovementValid
     ) {
+        self.player = player
         self.targetPosition = targetPosition
         self.currentPosition = currentPosition
         self.isMovementValid = isMovementValid

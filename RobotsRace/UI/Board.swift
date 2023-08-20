@@ -18,10 +18,9 @@ struct Board: View {
                     }
                 }
             }
-
-            Button("Step") {
-                viewModel.step()
-            }
+        }
+        .onAppear {
+            viewModel.start()
         }
     }
 }
